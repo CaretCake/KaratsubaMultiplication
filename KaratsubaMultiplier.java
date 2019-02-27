@@ -1,11 +1,11 @@
 public class KaratsubaMultiplier {
 
   public long getProductOf(String firstOp, String secondOp) throws longIntConversionException {
+
     LongInt firstOperand = new LongInt(firstOp);
     LongInt secondOperand = new LongInt(secondOp);
     int numberOfDigits = Math.max(firstOp.length(), secondOp.length());
     System.out.println("calculating: " + firstOp + " * " + secondOp);
-
 
     // check base case: if digit length <= 9
     if (firstOperand.isValidLong() && secondOperand.isValidLong()) {
@@ -33,9 +33,13 @@ public class KaratsubaMultiplier {
       System.out.println("P3: " + productThree);
       System.out.println("Sub: " + subtracted);
 
-      System.out.println("f1: " +(productOne * Math.pow(10, numberOfDigits)) +"\nf2: "+((subtracted) * Math.pow(10, (numberOfDigits / 2)))+"\nf3: "+productTwo);
+      //System.out.println("f1: " +Long.parseLong((Long.toString(productOne) + "00000000000")) +"\nf2: "+((subtracted) * Math.pow(10, (numberOfDigits / 2)))+"\nf3: "+productTwo);
       // return P1*10^n + (P3-P2-P1)10^n/2 + P2
       return (long)((productOne * Math.pow(10, numberOfDigits)) + ((productThree - productTwo - productOne) * Math.pow(10, ((int)(numberOfDigits / 2)))) + productTwo);
     }
+  }
+
+  private void addFinalProducts(long productOne, long productTwo, long productThree) {
+
   }
 }
