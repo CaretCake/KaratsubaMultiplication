@@ -2,6 +2,12 @@ import java.math.BigInteger;
 
 public class KaratsubaMultiplier {
 
+  /* Returns a BigInteger containing the value of the product of firstOp and secondOp.
+	 *
+ 	 * @param firstOp the integer value for the first operand in form of a string
+   * @param secondOp the integer value for the second operand in form of a string
+ 	 * @return a BigInteger with the value of the product of firstOp and secondOp
+ 	 */
   public BigInteger getProductOf(String firstOp, String secondOp) {
 
     BigInteger firstOperand = new BigInteger(firstOp);
@@ -43,26 +49,44 @@ public class KaratsubaMultiplier {
     }
   }
 
-  private BigInteger getHighHalf(BigInteger bigInt, int n) {
+  /* Returns a BigInteger containing the value of the high half of the given BigInteger
+   * by converting it to a String, prepending '0's to it as needed until it matches length
+   * of the largest operand to account for uneven length operands, splitting on halfway/close
+   * to halfway point, and returning it as a BigInteger.
+   *
+   * @param bigInt a BigInteger containing the value to split
+   * @param numberOfDigits number of digits in the larger of the two operands
+   * @return a BigInteger containing the value of the high half of bigInt
+   */
+  private BigInteger getHighHalf(BigInteger bigInt, int numberOfDigits) {
     String bigIntString = bigInt.toString();
-    if (bigIntString.length() < n) {
-      String append = "";
-      for (int i = 0; i < n; i++) {
-        append += "0";
+    if (bigIntString.length() < numberOfDigits) {
+      String prepend = "";
+      for (int i = 0; i < numberOfDigits; i++) {
+        prepend += "0";
       }
-      bigIntString = append + bigIntString;
+      bigIntString = prepend + bigIntString;
     }
     return new BigInteger(bigIntString.substring(0, bigIntString.length()/2));
   }
 
-  private BigInteger getLowHalf(BigInteger bigInt, int n) {
+  /* Returns a BigInteger containing the value of the low half of the given BigInteger
+   * by converting it to a String, prepending '0's to it as needed until it matches length
+   * of the largest operand to account for uneven length operands, splitting on halfway/close
+   * to halfway point, and returning it as a BigInteger.
+   *
+   * @param bigInt a BigInteger containing the value to split
+   * @param numberOfDigits number of digits in the larger of the two operands
+   * @return a BigInteger containing the value of the low half of bigInt
+   */
+  private BigInteger getLowHalf(BigInteger bigInt, int numberOfDigits) {
     String bigIntString = bigInt.toString();
-    if (bigIntString.length() < n) {
-      String append = "";
-      for (int i = 0; i < n; i++) {
-        append += "0";
+    if (bigIntString.length() < numberOfDigits) {
+      String prepend = "";
+      for (int i = 0; i < numberOfDigits; i++) {
+        prepend += "0";
       }
-      bigIntString = append + bigIntString;
+      bigIntString = prepend + bigIntString;
     }
     return new BigInteger(bigIntString.substring(bigIntString.length()/2));
   }
