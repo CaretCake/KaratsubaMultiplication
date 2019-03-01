@@ -18,8 +18,7 @@ public class KaratsubaMultiplier {
     if (firstOp.length() < 10 && secondOp.length() < 10) {
       // return converted operands * each other
       return firstOperand.multiply(secondOperand);
-    } else { // else do Karatsuba
-      // if length > 9, do with getProductOf
+    } else {
       BigInteger xHigh = getHighHalf(firstOperand, numberOfDigits);
       BigInteger xLow = getLowHalf(firstOperand, numberOfDigits);
       BigInteger yHigh = getHighHalf(secondOperand, numberOfDigits);
@@ -34,17 +33,18 @@ public class KaratsubaMultiplier {
       if (numberOfDigits % 2 != 0) {
         numberOfDigits++;
       }
-      BigInteger nPower = new BigInteger("10");
-      nPower = nPower.pow(numberOfDigits);
-      BigInteger nHalfPower = new BigInteger("10");
-      nHalfPower = nHalfPower.pow(numberOfDigits/2);
+      BigInteger nPower = new BigInteger("10").pow(numberOfDigits);
+      BigInteger nHalfPower = new BigInteger("10").pow(numberOfDigits/2);
 
       BigInteger result = new BigInteger("0");
+      // add to result P1 * 10^n
       result = result.add(productOne.multiply(nPower));
       BigInteger sub = productOne.add(productTwo);
+      // add to result P3 - (P2 + P1) * 10^n/2
       result = result.add((productThree.subtract(sub)).multiply(nHalfPower));
+      // add to result P2
       result = result.add(productTwo);
-      // return P1*10^n + (P3-P2-P1)10^n/2 + P2
+      // return P1 * 10^n + (P3-P2-P1) * 10^n/2 + P2
       return result;
     }
   }
