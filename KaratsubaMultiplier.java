@@ -1,45 +1,65 @@
+import java.math.BigInteger;
+
 public class KaratsubaMultiplier {
 
-  public long getProductOf(String firstOp, String secondOp) throws longIntConversionException {
+  public BigInteger getProductOf(String firstOp, String secondOp) {
 
-    LongInt firstOperand = new LongInt(firstOp);
-    LongInt secondOperand = new LongInt(secondOp);
+    BigInteger firstOperand = new BigInteger(firstOp);
+    BigInteger secondOperand = new BigInteger(secondOp);
     int numberOfDigits = Math.max(firstOp.length(), secondOp.length());
-    System.out.println("calculating: " + firstOp + " * " + secondOp);
+    //System.out.println("calculating: " + firstOp + " * " + secondOp);
 
     // check base case: if digit length <= 9
-    if (firstOperand.isValidLong() && secondOperand.isValidLong()) {
+    if (firstOp.length() < 10 && secondOp.length() < 10) {
       // return converted operands * each other
-      return firstOperand.getLongConversion() * secondOperand.getLongConversion();
+      return firstOperand.multiply(secondOperand);
     } else { // else do Karatsuba
       // if length > 9, do with getProductOf
-      long xHigh = firstOperand.getHighHalf();
-      long xLow = firstOperand.getLowHalf();
-      long yHigh = secondOperand.getHighHalf();
-      long yLow = secondOperand.getLowHalf();
+      BigInteger xHigh = getHighHalf(firstOperand);
+      BigInteger xLow = getLowHalf(firstOperand);
+      BigInteger yHigh = getHighHalf(secondOperand);
+      BigInteger yLow = getLowHalf(secondOperand);
       /*System.out.println("xHigh: " + xHigh);
       System.out.println("xLow: " + xLow);
       System.out.println("yHigh: " + yHigh);
       System.out.println("yLow: " + yLow);*/
       // calculate P1 = xh*yh
-      long productOne = this.getProductOf(Long.toString(xHigh), Long.toString(yHigh));
+      BigInteger productOne = this.getProductOf(xHigh.toString(), yHigh.toString());
       // calculate P2 = xl*yl
-      long productTwo = this.getProductOf(Long.toString(xLow), Long.toString(yLow));
+      BigInteger productTwo = this.getProductOf(xLow.toString(), yLow.toString());
       // calculate P3 = (xh+xl)(yh+yl)
-      long productThree = this.getProductOf(Long.toString(xHigh + xLow), Long.toString(yHigh + yLow));
-      long subtracted = productThree - productTwo - productOne;
-      System.out.println("P1: " + productOne);
+      BigInteger productThree = this.getProductOf((xHigh.add(xLow)).toString(), (yHigh.add(yLow)).toString());
+      /*System.out.println("P1: " + productOne);
       System.out.println("P2: " + productTwo);
-      System.out.println("P3: " + productThree);
-      System.out.println("Sub: " + subtracted);
+      System.out.println("P3: " + productThree);*/
+      //System.out.println("Sub: " + subtracted);
 
       //System.out.println("f1: " +Long.parseLong((Long.toString(productOne) + "00000000000")) +"\nf2: "+((subtracted) * Math.pow(10, (numberOfDigits / 2)))+"\nf3: "+productTwo);
+      if (numberOfDigits % 2 != 0) {
+        numberOfDigits++;
+      }
+      BigInteger nPower = new BigInteger("10");
+      nPower = nPower.pow(numberOfDigits);
+      BigInteger nHalfPower = new BigInteger("10");
+      nHalfPower = nHalfPower.pow(numberOfDigits/2);
+
+      BigInteger result = new BigInteger("0");
+      result = result.add(productOne.multiply(nPower));
+      BigInteger sub = productOne.add(productTwo);
+      result = result.add((productThree.subtract(sub)).multiply(nHalfPower));
+      result = result.add(productTwo);
       // return P1*10^n + (P3-P2-P1)10^n/2 + P2
-      return (long)((productOne * Math.pow(10, numberOfDigits)) + ((productThree - productTwo - productOne) * Math.pow(10, ((int)(numberOfDigits / 2)))) + productTwo);
+      return result;
     }
   }
 
-  private void addFinalProducts(long productOne, long productTwo, long productThree) {
+  private BigInteger getHighHalf(BigInteger bigInt) {
+    String bigIntString = bigInt.toString();
+    return new BigInteger(bigIntString.substring(0, bigIntString.length()/2));
+  }
 
+  private BigInteger getLowHalf(BigInteger bigInt) {
+    String bigIntString = bigInt.toString();
+    return new BigInteger(bigIntString.substring(bigIntString.length()/2));
   }
 }
