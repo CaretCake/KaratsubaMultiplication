@@ -5,7 +5,7 @@ public class KaratsubaMultiplier {
   /* Returns a BigInteger containing the value of the product of firstOp and secondOp.
 	 *
  	 * @param firstOp the integer value for the first operand in form of a string
-   * @param secondOp the integer value for the second operand in form of a string
+	 * @param secondOp the integer value for the second operand in form of a string
  	 * @return a BigInteger with the value of the product of firstOp and secondOp
  	 */
   public BigInteger getProductOf(String firstOp, String secondOp) {
