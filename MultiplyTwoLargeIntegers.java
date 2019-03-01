@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.text.DecimalFormat;
 
-public class MultiplyLongIntegers {
+public class MultiplyTwoLargeIntegers {
 	public static void main(String[] args) {
 
 		KaratsubaMultiplier karatMultiplier = new KaratsubaMultiplier();
@@ -30,7 +30,7 @@ public class MultiplyLongIntegers {
 			}
 			System.out.println("Program exiting.");
 			System.exit(0);
-			
+
 		}
 
 	}
