@@ -11,16 +11,6 @@ public class MultiplyLongIntegers {
 			System.out.println(args[0] + " * " + args[1] + " = " + decimalFormat.format(karatMultiplier.getProductOf(args[0], args[1])));
 		} else {
 
-			System.out.println("Hardcoded test cases:");
-			System.out.println("Testing 0 * 0 = 0");
-			System.out.println(decimalFormat.format(karatMultiplier.getProductOf("0", "0")));
-			System.out.println("Testing 10111213 * 12101110 = 122,356,900,746,430");
-			System.out.println(decimalFormat.format(karatMultiplier.getProductOf("10111213", "12101110")));
-			System.out.println("Testing 1234567890123845 * 1239849320859221 = 1,530,678,160,124,650,596,155,500,224,745");
-			System.out.println(decimalFormat.format(karatMultiplier.getProductOf("1234567890123845", "1239849320859221")));
-			System.out.println("Testing 999999999999 * 999999999999 = 999,999,999,998,000,000,000,001");
-			System.out.println(decimalFormat.format(karatMultiplier.getProductOf("999999999999", "999999999999")));
-
 			System.out.println("Enter two numbers to multiply, or enter 'EXIT' to quit the program.	");
 			Scanner scan = new Scanner(System.in);
 			while (true) {
@@ -40,6 +30,7 @@ public class MultiplyLongIntegers {
 			}
 			System.out.println("Program exiting.");
 			System.exit(0);
+			
 		}
 
 	}
