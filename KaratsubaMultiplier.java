@@ -14,9 +14,7 @@ public class KaratsubaMultiplier {
     BigInteger secondOperand = new BigInteger(secondOp);
     int numberOfDigits = Math.max(firstOp.length(), secondOp.length());
 
-    // check base case: if digit length <= 9
     if (firstOp.length() < 10 && secondOp.length() < 10) {
-      // return converted operands * each other
       return firstOperand.multiply(secondOperand);
     } else {
       BigInteger xHigh = getHighHalf(firstOperand, numberOfDigits);
@@ -61,11 +59,11 @@ public class KaratsubaMultiplier {
   private BigInteger getHighHalf(BigInteger bigInt, int numberOfDigits) {
     String bigIntString = bigInt.toString();
     if (bigIntString.length() < numberOfDigits) {
-      String prepend = "";
+      StringBuilder sBuilder = new StringBuilder();
       for (int i = 0; i < numberOfDigits; i++) {
-        prepend += "0";
+        sBuilder.append("0");
       }
-      bigIntString = prepend + bigIntString;
+      bigIntString = sBuilder.append(bigIntString).toString();
     }
     return new BigInteger(bigIntString.substring(0, bigIntString.length()/2));
   }
@@ -82,11 +80,11 @@ public class KaratsubaMultiplier {
   private BigInteger getLowHalf(BigInteger bigInt, int numberOfDigits) {
     String bigIntString = bigInt.toString();
     if (bigIntString.length() < numberOfDigits) {
-      String prepend = "";
+      StringBuilder sBuilder = new StringBuilder();
       for (int i = 0; i < numberOfDigits; i++) {
-        prepend += "0";
+        sBuilder.append("0");
       }
-      bigIntString = prepend + bigIntString;
+      bigIntString = sBuilder.append(bigIntString).toString();
     }
     return new BigInteger(bigIntString.substring(bigIntString.length()/2));
   }
